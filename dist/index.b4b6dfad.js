@@ -28495,7 +28495,7 @@ $RefreshReg$(_c, "LoginView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"jqVJz","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hlSvG","react/jsx-dev-runtime":"iTorj","express-validator":"khc7M"}],"khc7M":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","express-validator":"khc7M","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"jqVJz","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"hlSvG"}],"khc7M":[function(require,module,exports) {
 "use strict";
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
