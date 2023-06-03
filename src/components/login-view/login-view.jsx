@@ -1,5 +1,7 @@
 import { param } from "express-validator";
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const LoginView = ( {onLoggedIn} ) => {
     const [username, setUsername] = useState("");
@@ -25,9 +27,6 @@ export const LoginView = ( {onLoggedIn} ) => {
         })
         .then((response) => response.json())
         .then((data) => {
-            
-            // DEBUG ONLY
-
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", JSON.stringify(data.token));
@@ -41,25 +40,30 @@ export const LoginView = ( {onLoggedIn} ) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input
+        <Form onSubmit={handleSubmit}>
+            {/* Username */}
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    minLength="3"
                 />
-            </label>
-            <label>
-                Password:
-                <input 
+            </Form.Group>
+
+            {/* Password */}
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+            </Form.Group>
+            <Button variant="primary" type="submit">Log in</Button>
+        </Form>
     )
 };
