@@ -7,6 +7,7 @@ import { Row, Col} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 
 export const MainView = () => {
     // get localStorage user and token if available
@@ -17,6 +18,11 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser? storedUser: null);
     const [token, setToken] = useState(storedToken? storedToken: null);
     const [movies, setMovies] = useState([]);
+
+    const updateUser = user => {
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user))
+    }
 
     useEffect(() => {
         if (!token) {
@@ -53,11 +59,10 @@ export const MainView = () => {
                     localStorage.clear();
                 }}
             />
-            
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-left">
                 <Routes>
                     <Route
-                        path='/signup'
+                        path="/signup"
                         element={
                             <>
                                 {user ? (
@@ -72,7 +77,7 @@ export const MainView = () => {
                     />
 
                     <Route
-                        path='/login'
+                        path="/login"
                         element={
                             <>
                                 {user ? (
@@ -90,6 +95,26 @@ export const MainView = () => {
                     />
 
                     <Route
+                        path="/profile"
+                        element={
+                            <div>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col>
+                                        <ProfileView
+                                        user={user}
+                                        token={token}
+                                        movies={movies}
+                                        updateUser={updateUser}
+                                        />
+                                    </Col>
+                                )}
+                            </div>
+                        }
+                    />
+
+                    <Route
                         path="/movies/:movieId"
                         element={
                             <>
@@ -98,7 +123,7 @@ export const MainView = () => {
                                 ) : movies.length === 0 ? (
                                     <Col>No movies available</Col>
                                 ) : (
-                                    <Col md={8}>
+                                    <Col md={3}>
                                         <MovieView movies={movies} />
                                     </Col>
                                 )}
@@ -117,7 +142,12 @@ export const MainView = () => {
                                     <>
                                         {movies.map((movie) => (
                                             <Col className="mb-4" key={movie.id} md={3}>
-                                                <MovieCard movie={movie} />
+                                                <MovieCard
+                                                movie={movie} 
+                                                user={user}
+                                                token={token}
+                                                updateUser={updateUser}
+                                                />
                                             </Col>
                                         ))}
                                     </>
