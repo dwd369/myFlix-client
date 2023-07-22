@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Row, Col} from "react-bootstrap";
 export const ProfileView = ( {user, movies, updateUser, token} ) => {
-
+    
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [email, setEmail] = useState(null);
@@ -48,6 +48,7 @@ export const ProfileView = ( {user, movies, updateUser, token} ) => {
     }
 
     return (
+    
         <div>
         <Row className="justify-content-start" md={3}>
             <Form onSubmit={handleSubmit}>

@@ -3,10 +3,9 @@ import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export const MovieCard = ({ movie, user, token, updateUser }) => {
-
+export const MovieCard = ({ user, movie, token, updateUser }) => {
+    
     let addFavorite = () => {
-
         fetch(`https://dd-myflix.herokuapp.com/users/${user.Username}/movies/${movie.id}`, {
             method: "POST",
             headers: {
@@ -45,7 +44,6 @@ export const MovieCard = ({ movie, user, token, updateUser }) => {
             console.log(movie.id);
             if (response.ok) {
                 return response.json()
-                // window.location.reload();
             } else {
                 console.log(response)
                 alert("Failed to remove movie");
