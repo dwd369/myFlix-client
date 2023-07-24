@@ -5,6 +5,8 @@ import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { Row, Col} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import { Button, Form, Col } from "react-bootstrap"
+import { SearchBar } from "../search/search";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
@@ -18,6 +20,7 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser? storedUser: null);
     const [token, setToken] = useState(storedToken? storedToken: null);
     const [movies, setMovies] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
 
     const updateUser = user => {
         setUser(user);
@@ -44,10 +47,14 @@ export const MainView = () => {
                         imageURL: movie.ImageURL,
                         releaseYear: movie.RealeaseYear
                     };
-                });
+                })
                 setMovies(moviesFromApi);
-            });
-    }, [token]);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            })
+            ;
+    }, [token], [movies]);
 
     return (
         <BrowserRouter>
@@ -139,17 +146,31 @@ export const MainView = () => {
                                 ) : movies.length === 0 ? (
                                     <Col>No movies available</Col>
                                 ) : (
-                                    <>
-                                        {movies.map((movie) => (
+                                    <>                                        
+                                        <Row>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Enter a movie"
+                                                value={searchInput}
+                                                onChange={(e) => setSearchInput(e.target.value)}
+                                            />
+                                        </Row>
+                                        
+                                        {movies.filter((movie) => (
+                                            movie.title.toLowerCase().includes(searchInput.toLowerCase())
+                                        ))
+                                        .map((movie) => (
                                             <Col className="mb-4" key={movie.id} md={3}>
                                                 <MovieCard
-                                                movie={movie} 
-                                                user={user}
-                                                token={token}
-                                                updateUser={updateUser}
+                                                    movie={movie} 
+                                                    user={user}
+                                                    token={token}
+                                                    updateUser={updateUser}
                                                 />
                                             </Col>
-                                        ))}
+                                        ))
+
+                                        }
                                     </>
                                 )}
                             </>
