@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Row, Col} from "react-bootstrap";
+
 export const ProfileView = ( {user, movies, updateUser, token} ) => {
     
     const [username, setUsername] = useState(null);
@@ -12,10 +13,6 @@ export const ProfileView = ( {user, movies, updateUser, token} ) => {
     const [birthday, setBirthday] = useState(null);
 
     let favoriteMovies = movies.filter(m => user.FavoriteMovies.includes(m.id));
-
-    // console.log(user.FavoriteMovies);
-    // console.log(movies);
-    // console.log(favoriteMovies)
 
     let handleSubmit = (event) => {
         event.preventDefault();
@@ -47,6 +44,25 @@ export const ProfileView = ( {user, movies, updateUser, token} ) => {
         })
     }
 
+
+    let handleRemoveAccount = (event) => {
+        
+
+        fetch(`https://dd-myflix.herokuapp.com/users/${user.Username}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+            if (response.ok) {
+                alert("Your account has been deleted");
+                updateUser(null);
+                window.location.reload();
+            } else {
+                alert("Failed to delete account");
+            }
+        })
+    }
+
     return (
     
         <div>
@@ -58,7 +74,7 @@ export const ProfileView = ( {user, movies, updateUser, token} ) => {
                     <FloatingLabel
                         controlId="formUsername"
                         label="Username"
-                    >    
+                    >
                     <Form.Control
                         type="text"
                         onChange={(e) => setUsername(e.target.value)}
@@ -115,9 +131,9 @@ export const ProfileView = ( {user, movies, updateUser, token} ) => {
                 </Form.Group>
             
                 <Button variant="primary" type="submit" >Update</Button>
-                <Link to="#home">
-                    <Button variant="link">Remove account permanently</Button>
-                </Link>
+                
+                <Button variant="secondary" type="submit" onClick={handleRemoveAccount}>Remove account permanently</Button>
+                
                 
             </Form>
             </Row>
