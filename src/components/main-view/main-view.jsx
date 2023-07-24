@@ -6,7 +6,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { Row, Col} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Button, Form, Col } from "react-bootstrap"
-import { SearchBar } from "../search/search";
+// import { SearchBar } from "../search/search";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
