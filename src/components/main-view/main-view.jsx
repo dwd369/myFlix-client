@@ -66,7 +66,7 @@ export const MainView = () => {
                     localStorage.clear();
                 }}
             />
-            <Row className="justify-content-md-left">
+            <Row className="justify-content-md-center">
                 <Routes>
                     <Route
                         path="/signup"
@@ -147,7 +147,7 @@ export const MainView = () => {
                                     <Col>No movies available</Col>
                                 ) : (
                                     <>                                        
-                                        <Row>
+                                        <Row className="justify-content-center">
                                             <Form.Control
                                                 type="text"
                                                 placeholder="Enter a movie"
