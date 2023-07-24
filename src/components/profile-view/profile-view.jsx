@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { Row, Col} from "react-bootstrap";
 
-export const ProfileView = ( {user, movies, updateUser, token} ) => {
+export const ProfileView = ( {user, token, movies, updateUser} ) => {
     
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
